@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>WebSocket Video Stream</title>
+  <title>WebSocket Video Stream by Artur</title>
 </head>
 <body>
   <h1>WebSocket Video Viewer</h1>
@@ -11,12 +11,15 @@
     const img = document.getElementById("stream");
 
     ws.binaryType = "arraybuffer";
+
     ws.onmessage = (event) => {
-    document.getElementById("stream").src = "data:image/webp;base64," + btoa(
-        String.fromCharCode(...new Uint8Array(event.data)));
+      const blob = new Blob([event.data], {type: "image/webp"});  // или "image/jpeg" если шлёшь jpeg
+      img.src = URL.createObjectURL(blob);
     };
+
     ws.onopen = () => console.log("Соединение с WebSocket установлено");
     ws.onclose = () => console.log("Соединение закрыто");
+    ws.onerror = (e) => console.error("WebSocket error:", e);
   </script>
 </body>
 </html>

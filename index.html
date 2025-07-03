@@ -13,7 +13,7 @@
     ws.binaryType = "arraybuffer";
     ws.onmessage = (event) => {
     document.getElementById("stream").src = "data:image/webp;base64," + btoa(
-        String.fromCharCode(...new Uint8Array(event.data))
+        String.fromCharCode(...new Uint8Array(event.data)));
     };
     ws.onopen = () => console.log("Соединение с WebSocket установлено");
     ws.onclose = () => console.log("Соединение закрыто");
